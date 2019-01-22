@@ -7,11 +7,11 @@ echo "Making File System"
 # dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
 # mkdosfs /ecoduck.img
 
-IMAGEFILE=/ecoduck.img
+FILE=/ecoduck.img
 
 echo "Mounting mass storage on Pi"
 mkdir -p /mnt/ecoduck
-mount -o loop,rw, -t vfat $IMAGEFILE /mnt/ecoduck
+mount -o loop,rw, -t vfat $FILE /mnt/ecoduck
 
 echo "Creating gadget"
 # Create gadget
@@ -20,19 +20,18 @@ mkdir ecoduck && cd ecoduck
 
 
 # Add basic information
+
+echo 0x1d6b > idVendor # Linux Foundation
+echo 0x0104 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # Version 1.0.0
 echo 0x0200 > bcdUSB # USB 2.0
-echo 0x0104 > idProduct # Multifunction Composite Gadget
-echo 0x1d6b > idVendor # Linux Foundation
+
 
 # Creating English Locale
 mkdir -p strings/0x409
 echo "Team 404" > strings/0x409/manufacturer
 echo "Economical Duck" > strings/0x409/product
 echo "1337696969" > strings/0x409/serialnumber
-
-
-
 
 echo "Setting up functionality"
 N="usb0"
@@ -46,7 +45,7 @@ echo 1 > functions/mass_storage.$N/stall
 echo 0 > functions/mass_storage.$N/lun.0/cdrom
 echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
-echo $IMAGEFILE > functions/mass_storage.$N/lun.0/file
+echo $FILE > functions/mass_storage.$N/lun.0/file
 
 echo 1 > functions/hid.$N/protocol
 echo 1 > functions/hid.$N/subclass
