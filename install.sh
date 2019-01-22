@@ -24,13 +24,13 @@ echo 0x0100 > bcdDevice # Version 1.0.0
 echo 0x0200 > bcdUSB # USB 2.0
 echo 0x0104 > idProduct # Multifunction Composite Gadget
 echo 0x1d6b > idVendor # Linux Foundation
-
+# Creating English Locale
+mkdir -p strings/0x409
 echo "Team 404" > strings/0x409/manufacturer
 echo "Economical Duck" > strings/0x409/product
 echo "1337696969" > strings/0x409/serialnumber
 
-# Create English locale
-mkdir strings/0x409
+
 
 
 echo "Setting up functionality"
