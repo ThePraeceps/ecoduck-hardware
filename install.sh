@@ -46,7 +46,7 @@ echo 1 > functions/mass_storage.$N/stall
 echo 0 > functions/mass_storage.$N/lun.0/cdrom
 echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
-echo $FILE > functions/mass_storage.$N/lun.0/file
+echo $IMAGEFILE > functions/mass_storage.$N/lun.0/file
 
 echo 1 > functions/hid.$N/protocol
 echo 1 > functions/hid.$N/subclass
