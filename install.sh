@@ -4,8 +4,8 @@ modprobe libcomposite
 
 echo "Making File System"
 # Making USB Mass Storage File System
-dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
-mkdosfs /ecoduck.img
+# dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
+# mkdosfs /ecoduck.img
 
 IMAGEFILE=/ecoduck.img
 
@@ -24,6 +24,7 @@ echo 0x0100 > bcdDevice # Version 1.0.0
 echo 0x0200 > bcdUSB # USB 2.0
 echo 0x0104 > idProduct # Multifunction Composite Gadget
 echo 0x1d6b > idVendor # Linux Foundation
+
 # Creating English Locale
 mkdir -p strings/0x409
 echo "Team 404" > strings/0x409/manufacturer
