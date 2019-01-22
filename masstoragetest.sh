@@ -3,7 +3,7 @@
 # assumes a disk image exists here...
 FILE=/ecoduck.img
 mkdir -p /mnt/ecoduck
-mount -o loop,ro,offset=1048576 -t vfat $FILE /mnt/ecoduck
+mount -o loop,rw -t vfat $FILE /mnt/ecoduck
 cd /sys/kernel/config/usb_gadget/
 
 mkdir -p ecomass
