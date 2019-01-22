@@ -2,7 +2,7 @@
 # Enable LibComposite
 modprobe libcomposite
 
-
+echo "Making File System"
 # Making USB Mass Storage File System
 dd if=/dev/zero of=~/usbdisk.img bs=1024 count=524288
 mkdosfs ~/usbdisk.img
@@ -12,6 +12,7 @@ IMAGEFILE=~/usbdisk.img
 mkdir -p ${IMAGEFILE/img/d}
 mount -o loop,ro, -t vfat $IMAGEFILE ${IMAGEFILE/img/d}
 
+echo "Creating gadget"
 # Create gadget
 cd /sys/kernel/config/usb_gadget/
 mkdir ecoduck && cd ecoduck
@@ -62,6 +63,7 @@ echo 0x80 > configs/c.1/bmAttributes
 echo 200 > configs/c.1/MaxPower # 200 mA
 echo "Test config" > configs/c.1/strings/0x409/configuration
 
+echo "Starting gadget"
 # Link HID function to configuration
 ln -s functions/hid.usb0 configs/c.1
 ln -s functions/mass_storage.usb0 configs/c.1/
