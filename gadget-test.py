@@ -2,5 +2,5 @@
 import os
 
 while(1):
-	os.system("head -c 1 /dev/hidg0")
+	os.system("head -c 1 /dev/hidg0 > /dev/null")
 	print("Packet Recieved")
