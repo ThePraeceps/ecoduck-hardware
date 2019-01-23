@@ -6,7 +6,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 function write_report {
-    echo -ne $1 > /dev/hidg1
+    echo -ne $1 > /dev/hidg0
 }
 
 cat /dev/hidg1 | echo
