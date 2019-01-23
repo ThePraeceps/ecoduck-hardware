@@ -1,6 +1,11 @@
 #!/bin/bash
 # Enable LibComposite
 
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
 modprobe dwc2
 modprobe libcomposite
 
@@ -8,19 +13,13 @@ echo "dtoverlay=dwc2" >> /boot/config
 echo "dwc2" >> /etc/modules
 echo "libcomposite" >> /etc/modules
 
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 
-   exit 1
-fi
-
 echo "Making File System"
 # Making USB Mass Storage File System
 dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
 mkdosfs /ecoduck.img
 
-FILE=/ecoduck.img
-
 echo "Mounting mass storage on Pi"
+FILE=/ecoduck.img
 mkdir -p /mnt/ecoduck
 mount -o loop,rw, -t vfat $FILE /mnt/ecoduck
 
@@ -40,16 +39,15 @@ echo 0x0200 > bcdUSB # USB 2.0
 
 # Creating English Locale
 mkdir -p strings/0x409
+echo "1337696969" > strings/0x409/serialnumber
 echo "Team 404" > strings/0x409/manufacturer
 echo "Economical Duck" > strings/0x409/product
-echo "1337696969" > strings/0x409/serialnumber
 
 echo "Setting up functionality"
 N="usb0"
 
 mkdir -p functions/hid.$N
 mkdir -p functions/mass_storage.$N
-
 
 
 echo 1 > functions/mass_storage.$N/stall
