@@ -1,9 +1,6 @@
 #!/bin/usr/env python3
-import usb.core
-import usb.util
+import io
 
-usbs = usb.core.find()
-for item in usbs:
-	for i in item:
-		for e in i:
-			print(e.bEndpointAddress)
+f = io.open("/dev/hidg0", "rb")
+f.read(8)
+print("plugged")
