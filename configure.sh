@@ -1,9 +1,14 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
 echo "Making File System"
 # Making USB Mass Storage File System
-dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
-mkdosfs /ecoduck.img
+# dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
+# mkdosfs /ecoduck.img
 
 echo "Mounting mass storage on Pi"
 FILE=/ecoduck.img
