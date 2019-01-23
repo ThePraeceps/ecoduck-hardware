@@ -13,6 +13,9 @@ echo "dtoverlay=dwc2" >> /boot/config
 echo "dwc2" >> /etc/modules
 echo "libcomposite" >> /etc/modules
 
+echo "Updating system"
+sudo BRANCH=next rpi-update
+
 echo "Making File System"
 # Making USB Mass Storage File System
 dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
