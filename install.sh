@@ -1,11 +1,22 @@
 #!/bin/bash
 # Enable LibComposite
+
+modprobe dwc2
 modprobe libcomposite
+
+echo "dtoverlay=dwc2" >> /boot/config
+echo "dwc2" >> /etc/modules
+echo "libcomposite" >> /etc/modules
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
 
 echo "Making File System"
 # Making USB Mass Storage File System
-# dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
-# mkdosfs /ecoduck.img
+dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
+mkdosfs /ecoduck.img
 
 FILE=/ecoduck.img
 
