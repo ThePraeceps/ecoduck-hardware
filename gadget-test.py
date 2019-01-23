@@ -6,4 +6,4 @@ usbs = usb.core.find()
 for item in usbs:
 	for i in item:
 		for e in i:
-			print e.bEndpointAddress
+			print(e.bEndpointAddress)
