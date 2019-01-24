@@ -13,9 +13,9 @@ cd /sys/kernel/config/usb_gadget/ecoduck
 
 echo "" > UDC
 
-rm configs/c.$C/*.$N
-rmdir configs/c.$C/strings/*
-rmdir configs/c.$C
+rm configs/c.*/*.$N
+rmdir configs/c.*/strings/*
+rmdir configs/c.*
 rmdir functions/*
 rmdir strings/*
 cd ..

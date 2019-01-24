@@ -82,10 +82,11 @@ def wait_till_disconnect():
 		sleep(3)
 	print("Disconnected!")
 
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
-	if(popen_timeout("./electrical-test.sh", 1)):
-		print("Target is: " + check_output("./fingerprint-host.sh"))
+	if(popen_timeout(__location__+"/electrical-test.sh", 1)):
+		print("Target is: " + check_output(__location__+"/fingerprint-host.sh").decode())
 		print("Target conneceted")
 		dummy_payload()
 		print("Payload completed")
