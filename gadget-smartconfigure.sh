@@ -79,7 +79,7 @@ echo "Setting up Networking"
 if [ "$OS" != "MacOS" ]; then
 	echo "Not Mac"
 	# Config 1: RNDIS
-	mkdir -p configs/c.$C/strings/0x409
+	C=2
 	echo "0x80" > configs/c.$C/bmAttributes
 	echo 250 > configs/c.$C/MaxPower
 	echo "Config 1: RNDIS network" > configs/c.$C/strings/0x409/configuration
@@ -94,11 +94,11 @@ if [ "$OS" != "MacOS" ]; then
 	echo "RNDIS" > functions/rndis.$N/os_desc/interface.rndis/compatible_id
 	echo "5162001" > functions/rndis.$N/os_desc/interface.rndis/sub_compatible_id
 fi
-
+C=3
 # Config 2: CDC ECM
-mkdir -p configs/c.2/strings/0x409
+mkdir -p configs/c.$C/strings/0x409
 echo "Config 2: ECM network" > configs/c.2/strings/0x409/configuration
-echo 250 > configs/c.2/MaxPower
+echo 250 > configs/c.$C/MaxPower
 
 mkdir -p functions/ecm.$N
 # first byte of address must be even
@@ -110,13 +110,13 @@ mkdir -p functions/acm.gs0
 
 # Link everything and bind the USB device
 if [ "$OS" != "MacOs" ]; then
-	ln -s configs/c.1 os_desc
-	ln -s functions/rndis.usb0 configs/c.1
+	ln -s configs/c.2 os_desc
+	ln -s functions/rndis.usb0 configs/c.2
 fi
 
-ln -s functions/ecm.usb0 configs/c.2
-ln -s functions/acm.gs0 configs/c.2
-ln -s functions/mass_storage.$N configs/c.$C/
+ln -s functions/ecm.usb0 configs/c.3
+ln -s functions/acm.gs0 configs/c.3
+ln -s functions/mass_storage.$N configs/c.1/
 
 echo "" > UDC
 ls /sys/class/udc > UDC
