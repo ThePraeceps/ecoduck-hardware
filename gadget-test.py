@@ -2,7 +2,7 @@
 import os
 from time import sleep
 
-def write_report(report)
+def write_report(report):
 	fd = os.open("/dev/hidg0", os.O_RDWR)
 	os.write(fd, report)
 	os.close(fd)
