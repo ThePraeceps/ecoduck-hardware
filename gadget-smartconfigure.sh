@@ -57,12 +57,16 @@ ln -s functions/hid.$N configs/c.$C/
 echo "Enabling gadget"
 ls /sys/class/udc > UDC
 
+echo "Waiting for connection"
 bash /home/pi/ecoduck-hardware/electrical-test.sh
+
+echo "Identifying OS"
 OS="$(bash /home/pi/ecoduck-hardware/fingerprint-host.sh)"
 HOST="48:6f:73:74:50:43"
 SELF0="42:61:64:55:53:42"
 SELF1="42:61:64:55:53:43"
 
+echo "Setting up mass storage"
 mkdir -p functions/mass_storage.$N
 
 echo 1 > functions/mass_storage.$N/stall
@@ -71,6 +75,7 @@ echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
 echo $FILE > functions/mass_storage.$N/lun.0/file
 
+echo "Setting up Networking"
 if [ "$OS" != "MacOS" ]; then
 	# Config 1: RNDIS
 	mkdir -p configs/c.$C/strings/0x409
