@@ -18,7 +18,7 @@ def popen_timeout(command, timeout):
     return False
 
 def wait_till_disconnect():
-	while(popen_timeout("./electrical_test.sh", 5)):
+	while(popen_timeout("./electrical-test.sh", 5)):
 		print("Still connected")
 		sleep(3)
 	print("Disconnected!")
