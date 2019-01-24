@@ -56,8 +56,8 @@ echo 0 > functions/mass_storage.$N/lun.0/nofua
 echo $FILE > functions/mass_storage.$N/lun.0/file
 
 mkdir -p functions/rndis.$N
-echo $SELF0 > functions/rndis.$N/dev_addr
-echo $HOST > functions/rndis.$N/host_addr
+echo $CLIENTMAC > functions/rndis.$N/dev_addr
+echo $HOSTMAC > functions/rndis.$N/host_addr
 echo "RNDIS" > functions/rndis.$N/os_desc/interface.rndis/compatible_id
 echo "5162001" > functions/rndis.$N/os_desc/interface.rndis/sub_compatible_id
 
@@ -71,7 +71,7 @@ C=1
 mkdir -p configs/c.$C/strings/0x409
 echo "Windows Configuration" > configs/c.$C/strings/0x409/configuration
 echo 250 > configs/c.$C/MaxPower 
-
+echo "0x80" > configs/c.1/bmAttributes
 
 echo "Linking functionality"
 ln -s functions/mass_storage.$N configs/c.$C/
