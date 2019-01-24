@@ -80,6 +80,7 @@ if [ "$OS" != "MacOS" ]; then
 	echo "Not Mac"
 	# Config 1: RNDIS
 	C=2
+	mkdir -p configs/c.$C/strings/0x409
 	echo "0x80" > configs/c.$C/bmAttributes
 	echo 250 > configs/c.$C/MaxPower
 	echo "Config 1: RNDIS network" > configs/c.$C/strings/0x409/configuration
