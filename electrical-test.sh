@@ -13,4 +13,3 @@ write_report "\0\0\0\0\0\0\0\0"
 head -c 1 /dev/hidg0 > /dev/null
 write_report "\0\0\x39\0\0\0\0\0"
 write_report "\0\0\0\0\0\0\0\0"
-echo "Connected!"
