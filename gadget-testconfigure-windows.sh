@@ -81,18 +81,17 @@ echo "0x80" > configs/c.$C/bmAttributes
 echo "Linking functionality"
 
 C=1
+
+ln -s functions/mass_storage.$N configs/c.$C/
+ln -s functions/hid.$N configs/c.$C/
+echo "Round 1"
+ls /sys/class/udc > UDC
+sleep 10
+
+echo "" > UDC
 ln -s functions/rndis.$N configs/c.$C/
 ln -s configs/c.$C os_desc
 
 
 echo "Enabling gadget"
-ls /sys/class/udc > UDC
-
-sleep 2
-
-echo "" > UDC
-
-
-ln -s functions/mass_storage.$N configs/c.$C/
-ln -s functions/hid.$N configs/c.$C/
 ls /sys/class/udc > UDC
