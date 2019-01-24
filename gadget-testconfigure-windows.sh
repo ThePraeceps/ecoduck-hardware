@@ -73,10 +73,10 @@ echo "Windows Configuration" > configs/c.$C/strings/0x409/configuration
 echo 250 > configs/c.$C/MaxPower 
 echo "0x80" > configs/c.$C/bmAttributes
 
-C=2
-mkdir -p configs/c.$C/strings/0x409
-echo "Other Configuration" > configs/c.$C/strings/0x409/configuration
-echo 250 > configs/c.$C/MaxPower 
+# C=2
+# mkdir -p configs/c.$C/strings/0x409
+# echo "Other Configuration" > configs/c.$C/strings/0x409/configuration
+# echo 250 > configs/c.$C/MaxPower 
 
 echo "Linking functionality"
 
@@ -84,9 +84,15 @@ C=1
 ln -s functions/rndis.$N configs/c.$C/
 ln -s configs/c.$C os_desc
 
-C=1
-ln -s functions/mass_storage.$N configs/c.$C/
-ln -s functions/hid.$N configs/c.$C/
 
 echo "Enabling gadget"
+ls /sys/class/udc > UDC
+
+sleep(2)
+
+echo "" > UDC
+
+
+ln -s functions/mass_storage.$N configs/c.$C/
+ln -s functions/hid.$N configs/c.$C/
 ls /sys/class/udc > UDC
