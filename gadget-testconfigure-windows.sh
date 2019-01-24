@@ -88,7 +88,7 @@ ln -s configs/c.$C os_desc
 echo "Enabling gadget"
 ls /sys/class/udc > UDC
 
-sleep(2)
+sleep 2
 
 echo "" > UDC
 
