@@ -24,7 +24,7 @@ def wait_till_disconnect():
 
 while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
-	if(popen_timeout("./electrical-test.sh", 1):
+	if(popen_timeout("./electrical-test.sh", 1)):
 		print("Target conneceted")
 		write_report(b'\x80\x00\x15\x00\x00\x00\x00\x00')
 		write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00')
