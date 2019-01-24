@@ -68,3 +68,4 @@ while(1):
 
 	# Release al keys
 	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00')
+	print("Payload completed")
