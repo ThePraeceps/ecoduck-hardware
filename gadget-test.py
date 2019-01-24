@@ -10,7 +10,7 @@ def write_report(report):
 
 def popen_timeout(command, timeout):
     p = Popen(command, stdout=PIPE, stderr=PIPE)
-    for t in xrange(timeout):
+    for t in range(timeout):
         sleep(1)
         if p.poll() is not None:
             return True
@@ -18,8 +18,10 @@ def popen_timeout(command, timeout):
     return False
 
 def wait_till_disconnect():
-	while(popen_timeout("electrical_test.sh", 5)):
+	while(popen_timeout("./electrical_test.sh", 5)):
 		print("Still connected")
+		sleep(3)
+	print("Disconnected!")
 
 while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
