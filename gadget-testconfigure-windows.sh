@@ -71,7 +71,7 @@ C=1
 mkdir -p configs/c.$C/strings/0x409
 echo "Windows Configuration" > configs/c.$C/strings/0x409/configuration
 echo 250 > configs/c.$C/MaxPower 
-echo "0x80" > configs/c.$C/bmAttributes
+#echo "0x80" > configs/c.$C/bmAttributes
 
 # C=2
 # mkdir -p configs/c.$C/strings/0x409
