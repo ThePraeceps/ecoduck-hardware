@@ -26,10 +26,12 @@ mkdir ecoduck && cd ecoduck
 
 # Add basic information
 
-echo 0x1d6b > idVendor # Linux Foundation
-echo 0x0104 > idProduct # Multifunction Composite Gadget
+echo 0x04b3 > idVendor # Linux Foundation
+echo 0x4010 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # Version 1.0.0
 echo 0x0200 > bcdUSB # USB 2.0
+echo "0x02" > bDeviceClass # Needs to be 0x00 for Mass Storage
+echo "0x00" > bDeviceSubClass
 
 
 # Creating English Locale
@@ -75,17 +77,17 @@ echo "0x80" > configs/c.$C/bmAttributes
 
 echo "Linking functionality"
 
-ln -s functions/mass_storage.$N configs/c.$C/
-ln -s functions/hid.$N configs/c.$C/
+ln -s functions/rndis.$N configs/c.$C/
+ln -s configs/c.$C os_desc
 
 echo "Round 1"
 ls /sys/class/udc > UDC
 sleep 10
-
 echo "" > UDC
-ln -s functions/rndis.$N configs/c.$C/
-ln -s configs/c.$C os_desc
 
-
+ln -s functions/mass_storage.$N configs/c.$C/
+ln -s functions/hid.$N configs/c.$C/
+echo "0x00" > bDeviceClass
+5
 echo "Enabling gadget"
 ls /sys/class/udc > UDC
