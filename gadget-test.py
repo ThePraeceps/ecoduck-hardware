@@ -7,6 +7,7 @@ def write_report(report):
 	fd = os.open("/dev/hidg0", os.O_RDWR)
 	os.write(fd, report)
 	os.close(fd)
+
 def popen_timeout(command, timeout):
     p = Popen(command, stdout=PIPE, stderr=PIPE)
     for t in xrange(timeout):
@@ -16,7 +17,7 @@ def popen_timeout(command, timeout):
     p.kill()
     return False
 
-def wait_till_disconnect:
+def wait_till_disconnect():
 	while(popen_timeout(electrical_test.sh, 5)):
 		print("Still connected")
 
@@ -83,4 +84,3 @@ while(1):
 	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00')
 	print("Payload completed")
 	wait_till_disconnect()
-	
