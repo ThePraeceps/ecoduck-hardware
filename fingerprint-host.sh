@@ -20,16 +20,13 @@ done
 #echo $COUNTER
 if [ $TOTAL -eq 0 ]; then
     echo Unknown
-    exit 0
+    exit 1
 fi
 #echo $COUNTER
 if [ $COUNTER -eq 0 ]; then
     echo MacOs
-    exit 1
 elif [ $COUNTER -eq $TOTAL ]; then
     echo Linux
-    exit 2
 else
     echo Windows
-    exit 3
 fi
