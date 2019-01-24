@@ -10,61 +10,61 @@ def write_report(report):
 while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
 	print("Packet Recieved")
-	write_report(b'\x80\0\x15\0\0\0\0\0')
-	write_report(b'\0\0\0\0\0\0\0\0')
+	write_report(b'\x80\x0\x15\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x0\x0\x0\x0\x0\x0')
 	sleep(1)
-	write_report(b'\0\0\x6\0\0\0\0\0')
-	write_report(b'\0\0\x10\0\0\0\0\0')
-	write_report(b'\0\0\x7\0\0\0\0\0')
-	write_report(b'\0\0\x28\0\0\0\0\0')
-	write_report(b'\0\0\0\0\0\0\0\0')
+	write_report(b'\x0\x0\x6\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x10\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x7\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x28\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x0\x0\x0\x0\x0\x0')
 	sleep(2)
-	write_report(b'\0\0\x08\0\0\0\0\0')
-	write_report(b'\0\0\x06\0\0\0\0\0')
-	write_report(b'\0\0\x0b\0\0\0\0\0')
-	write_report(b'\0\0\x12\0\0\0\0\0')
-	write_report(b'\0\0\x2c\0\0\0\0\0')
+	write_report(b'\x0\x0\x08\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x06\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x0b\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x12\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x2c\x0\x0\x0\x0\x0')
 
-	write_report(b'\0\0\x34\0\0\0\0\0')
+	write_report(b'\x0\x0\x34\x0\x0\x0\x0\x0')
 	# H (press shift and H)
 
-	write_report(b'\x20\0\xb\0\0\0\0\0')
+	write_report(b'\x20\x0\xb\x0\x0\x0\x0\x0')
 
 	# e
-	write_report(b'\0\0\x8\0\0\0\0\0')
+	write_report(b'\x0\x0\x8\x0\x0\x0\x0\x0')
 
 	# ll
-	write_report(b'\0\0\xf\0\0\0\0\0')
-	write_report(b'\0\0\0\0\0\0\0\0')
-	write_report(b'\0\0\xf\0\0\0\0\0')
+	write_report(b'\x0\x0\xf\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\x0\x0\x0\x0\x0\x0')
+	write_report(b'\x0\x0\xf\x0\x0\x0\x0\x0')
 
 	# o
-	write_report(b'\0\0\x12\0\0\0\0\0')
+	write_report(b'\x0\x0\x12\x0\x0\x0\x0\x0')
 
 	# SPACE
-	write_report(b'\0\0\x2c\0\0\0\0\0')
+	write_report(b'\x0\x0\x2c\x0\x0\x0\x0\x0')
 
 	# W (press shift and W)
-	write_report(b'\x20\0\x1a\0\0\0\0\0')
+	write_report(b'\x20\x0\x1a\x0\x0\x0\x0\x0')
 
 	# o
-	write_report(b'\0\0\x12\0\0\0\0\0')
+	write_report(b'\x0\x0\x12\x0\x0\x0\x0\x0')
 
 	# r
-	write_report(b'\0\0\x15\0\0\0\0\0')
+	write_report(b'\x0\x0\x15\x0\x0\x0\x0\x0')
 
 	# l
-	write_report(b'\0\0\xf\0\0\0\0\0')
+	write_report(b'\x0\x0\xf\x0\x0\x0\x0\x0')
 
 	# d
-	write_report(b'\0\0\x7\0\0\0\0\0')
+	write_report(b'\x0\x0\x7\x0\x0\x0\x0\x0')
 
 	# ! (press shift and 1)
-	write_report(b'\x20\0\x1e\0\0\0\0\0')
+	write_report(b'\x20\x0\x1e\x0\x0\x0\x0\x0')
 
-	write_report(b'\0\0\x34\0\0\0\0\0')
+	write_report(b'\x0\x0\x34\x0\x0\x0\x0\x0')
 
-	write_report(b'\0\0\x28\0\0\0\0\0')
+	write_report(b'\x0\x0\x28\x0\x0\x0\x0\x0')
 
 	# Release al keys
-	write_report(b'\0\0\0\0\0\0\0\0')
+	write_report(b'\x0\x0\x0\x0\x0\x0\x0\x0')
