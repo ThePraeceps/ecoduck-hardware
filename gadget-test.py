@@ -1,11 +1,24 @@
 #!/bin/usr/env python3
 import os
 from time import sleep
+from subprocess import Popen, PIPE
 
 def write_report(report):
 	fd = os.open("/dev/hidg0", os.O_RDWR)
 	os.write(fd, report)
 	os.close(fd)
+def popen_timeout(command, timeout):
+    p = Popen(command, stdout=PIPE, stderr=PIPE)
+    for t in xrange(timeout):
+        sleep(1)
+        if p.poll() is not None:
+            return True
+    p.kill()
+    return False
+
+def wait_till_disconnect:
+	while(popen_timeout(electrical_test.sh, 5)):
+		print("Still connected")
 
 while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
@@ -69,3 +82,5 @@ while(1):
 	# Release al keys
 	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00')
 	print("Payload completed")
+	wait_till_disconnect()
+	
