@@ -120,4 +120,5 @@ ln -s functions/mass_storage.$N configs/c.$C/
 echo "" > UDC
 ls /sys/class/udc > UDC
 
+echo "Running payload"
 python3 /home/pi/ecoduck-hardware/gadget-test.py
