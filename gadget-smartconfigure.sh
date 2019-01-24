@@ -57,8 +57,8 @@ ln -s functions/hid.$N configs/c.$C/
 echo "Enabling gadget"
 ls /sys/class/udc > UDC
 
-bash electrical-test.sh
-OS="$(bash fingerprint-host.sh)"
+bash /home/pi/ecoduck-hardware/electrical-test.sh
+OS="$(bash /home/pi/ecoduck-hardware/fingerprint-host.sh)"
 HOST="48:6f:73:74:50:43"
 SELF0="42:61:64:55:53:42"
 SELF1="42:61:64:55:53:43"
@@ -115,4 +115,4 @@ ln -s functions/mass_storage.$N configs/c.$C/
 echo "" > UDC
 ls /sys/class/udc > UDC
 
-python3 gadget-test.py
+python3 /home/pi/ecoduck-hardware/gadget-test.py
