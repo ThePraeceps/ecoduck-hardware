@@ -77,6 +77,7 @@ echo $FILE > functions/mass_storage.$N/lun.0/file
 
 echo "Setting up Networking"
 if [ "$OS" != "MacOS" ]; then
+	echo "Not Mac"
 	# Config 1: RNDIS
 	mkdir -p configs/c.$C/strings/0x409
 	echo "0x80" > configs/c.$C/bmAttributes
