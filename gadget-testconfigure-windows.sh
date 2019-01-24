@@ -82,7 +82,7 @@ echo "Linking functionality"
 
 C=1
 ln -s functions/rndis.$N configs/c.$C/
-ln -s configs/c.$N os_desc
+ln -s configs/c.$C os_desc
 
 C=2
 ln -s functions/mass_storage.$N configs/c.$C/
