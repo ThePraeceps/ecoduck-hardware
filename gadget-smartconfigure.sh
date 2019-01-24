@@ -52,7 +52,6 @@ mkdir -p configs/c.$C/strings/0x409
 echo 250 > configs/c.$C/MaxPower 
 
 echo "Linking functionality"
-ln -s functions/mass_storage.$N configs/c.$C/
 ln -s functions/hid.$N configs/c.$C/
 
 echo "Enabling gadget"
@@ -111,7 +110,7 @@ fi
 
 ln -s functions/ecm.usb0 configs/c.2
 ln -s functions/acm.gs0 configs/c.2
-
+ln -s functions/mass_storage.$N configs/c.$C/
 
 echo "" > UDC
 ls /sys/class/udc > UDC
