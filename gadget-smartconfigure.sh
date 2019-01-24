@@ -58,8 +58,8 @@ ln -s functions/hid.$N configs/c.$C/
 echo "Enabling gadget"
 ls /sys/class/udc > UDC
 
-bash ./electrical-test.sh
-OS="$(bash ./fingerprint-host.sh)"
+bash electrical-test.sh
+OS="$(bash fingerprint-host.sh)"
 HOST="48:6f:73:74:50:43"
 SELF0="42:61:64:55:53:42"
 SELF1="42:61:64:55:53:43"
@@ -115,3 +115,5 @@ ln -s functions/acm.gs0 configs/c.2
 
 echo "" > UDC
 ls /sys/class/udc > UDC
+
+python3 gadget-test.py
