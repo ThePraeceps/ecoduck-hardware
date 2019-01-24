@@ -85,7 +85,6 @@ def wait_till_disconnect():
 while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
 	if(popen_timeout("./electrical-test.sh", 1)):
-		fingerprint = Popen(, stdout=PIPE, stderr=PIPE)
 		print("Target is: " check_output("./fingerprint-host.sh"))
 		print("Target conneceted")
 		dummy_payload()
