@@ -105,7 +105,7 @@ while(1):
 		print("Target is: " + detectedos)
 		print("Target conneceted")
 		dummy_payload()
-		sleep(10)
+		
 		print("Payload completed")
 		if "Windows" == detectedos:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
