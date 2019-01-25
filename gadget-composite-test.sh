@@ -23,8 +23,8 @@ mkdir ecoduck && cd ecoduck
 
 # Add basic information
 
-echo 0x04b3 > idVendor # IBM
-echo 0x4010 > idProduct # RNDIS
+echo 0x1d6b > idVendor # P4wnP1
+echo 0x0137 > idProduct # RNDIS
 echo 0x0100 > bcdDevice # Version 1.0.0
 echo 0x0200 > bcdUSB # USB 2.0
 
@@ -82,6 +82,13 @@ echo -ne \\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\
 
 echo "Linking functionality"
 ln -s functions/rndis.$N configs/c.$C/
+
+ls /sys/class/udc > UDC
+
+sleep 0.2
+echo "" > UDC
+
+
 ln -s functions/mass_storage.$N configs/c.$C/
 ln -s functions/hid.$N configs/c.$C/
 
