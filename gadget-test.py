@@ -100,9 +100,10 @@ while(1):
 		print("Target conneceted")
 		# dummy_payload()
 		print("Payload completed")
-		wait_till_disconnect()
 		if detectedos == "Windows":
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
 		os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
+		wait_till_disconnect()
+
