@@ -23,7 +23,7 @@ mkdir ecoduck && cd ecoduck
 
 # Add basic information
 
-echo 0x04b3 > idVendor # IBM
+echo 0x1d6b > idVendor # Linux Foundation
 echo 0x4010 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # Version 1.0.0
 echo 0x0200 > bcdUSB # USB 2.0
