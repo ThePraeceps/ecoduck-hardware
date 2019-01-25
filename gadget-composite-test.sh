@@ -56,12 +56,12 @@ echo $SELF1 > functions/ecm.usb0/dev_addr
 # Create the CDC ACM function
 mkdir -p functions/acm.gs0
 
-mkdir -p functions/mass_storage.$N
+mkdir -p functions/mass_storage.usb0
 
-echo 1 > functions/mass_storage.$N/stall
-echo 0 > functions/mass_storage.$N/lun.0/cdrom
-echo 0 > functions/mass_storage.$N/lun.0/ro
-echo 0 > functions/mass_storage.$N/lun.0/nofua
+echo 1 > functions/mass_storage.usb0/stall
+echo 0 > functions/mass_storage.usb0/lun.0/cdrom
+echo 0 > functions/mass_storage.usb0/lun.0/ro
+echo 0 > functions/mass_storage.usb0/lun.0/nofua
 echo $FILE > functions/mass_storage.$N/lun.0/file
 
 # Link everything and bind the USB device
