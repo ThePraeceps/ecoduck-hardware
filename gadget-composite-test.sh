@@ -1,96 +1,78 @@
-#!/bin/bash
+#!/bin/sh
+#
+# HackPi
+#  by wismna
+#  http://github.com/wismna/raspberry-pi/hackpi
+#  14/01/2017
+#
 
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 
-   exit 1
+cd /sys/kernel/config/usb_gadget/
+mkdir -p hackpi
+cd hackpi
+
+OS="Windows"
+HOST="48:6f:73:74:50:43"
+SELF0="42:61:64:55:53:42"
+SELF1="42:61:64:55:53:43"
+FILE=/ecoduck.img
+
+echo 0x04b3 > idVendor
+echo 0x4010 > idProduct
+
+echo 0x0100 > bcdDevice # v1.0.0
+mkdir -p strings/0x409
+echo "badc0deddeadbeef" > strings/0x409/serialnumber
+echo "wismna" > strings/0x409/manufacturer
+echo "PiZero" > strings/0x409/product
+
+if [ "$OS" != "MacOs" ]; then
+	# Config 1: RNDIS
+	mkdir -p configs/c.1/strings/0x409
+	echo "0x80" > configs/c.1/bmAttributes
+	echo 250 > configs/c.1/MaxPower
+	echo "Config 1: RNDIS network" > configs/c.1/strings/0x409/configuration
+
+	echo "1" > os_desc/use
+	echo "0xcd" > os_desc/b_vendor_code
+	echo "MSFT100" > os_desc/qw_sign
+
+	mkdir -p functions/rndis.usb0
+	echo $SELF0 > functions/rndis.usb0/dev_addr
+	echo $HOST > functions/rndis.usb0/host_addr
+	echo "RNDIS" > functions/rndis.usb0/os_desc/interface.rndis/compatible_id
+	echo "5162001" > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
 fi
 
-echo "Making File System"
-# Making USB Mass Storage File System
-# dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
-# mkdosfs /ecoduck.img
+# Config 2: CDC ECM
+mkdir -p configs/c.2/strings/0x409
+echo "Config 2: ECM network" > configs/c.2/strings/0x409/configuration
+echo 250 > configs/c.2/MaxPower
 
-echo "Mounting mass storage on Pi"
-FILE=/ecoduck.img
-mkdir -p /mnt/ecoduck
-mount -o loop,rw, -t vfat $FILE /mnt/ecoduck
+mkdir -p functions/ecm.usb0
+# first byte of address must be even
+echo $HOST > functions/ecm.usb0/host_addr
+echo $SELF1 > functions/ecm.usb0/dev_addr
 
-echo "Creating gadget"
-# Create gadget
-cd /sys/kernel/config/usb_gadget/
-mkdir ecoduck && cd ecoduck
+# Create the CDC ACM function
+mkdir -p functions/acm.gs0
 
-
-# Add basic information
-
-echo 0x1d6b > idVendor # P4wnP1
-echo 0x0137 > idProduct # RNDIS
-echo 0x0100 > bcdDevice # Version 1.0.0
-echo 0x0200 > bcdUSB # USB 2.0
-
-
-echo 0xEF > bDeviceClass
-echo 0x02 > bDeviceSubClass
-echo 0x01 > bDeviceProtocol
-
-# Creating English Locale
-mkdir -p strings/0x409
-echo "1337696969" > strings/0x409/serialnumber
-echo "Team 404" > strings/0x409/manufacturer
-echo "Economical Duck" > strings/0x409/product
-
-echo "Setting up functionality"
-
-C=1
-mkdir -p configs/c.$C/strings/0x409
-echo 250 > configs/c.1/MaxPower
-echo 0xC0 > configs/c.1/bmAttributes # self powered device
-echo 0x80 > configs/c.1/bmAttributes #  USB_OTG_SRP | USB_OTG_HNP
-echo 250 > configs/c.$C/MaxPower 
-
-N="usb0"
-# RNDIS
-mkdir -p functions/rndis.$N
-echo "42:63:65:13:34:56" > functions/rndis.$N/host_addr
-echo "42:63:65:66:43:21" > functions/rndis.$N/dev_addr
-
-mkdir -p os_desc
-echo 1 > os_desc/use
-echo 0xbc > os_desc/b_vendor_code
-echo MSFT100 > os_desc/qw_sign
-
-mkdir -p functions/rndis.usb0/os_desc/interface.rndis
-echo RNDIS > functions/rndis.usb0/os_desc/interface.rndis/compatible_id
-echo 5162001 > functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
-
-# Mass Storage
 mkdir -p functions/mass_storage.$N
+
 echo 1 > functions/mass_storage.$N/stall
 echo 0 > functions/mass_storage.$N/lun.0/cdrom
 echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
 echo $FILE > functions/mass_storage.$N/lun.0/file
 
-# HID Device
-mkdir -p functions/hid.$N
-echo 1 > functions/hid.$N/protocol
-echo 1 > functions/hid.$N/subclass
-echo 8 > functions/hid.$N/report_length
-echo -ne \\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x08\\x81\\x02\\x95\\x01\\x75\\x08\\x81\\x03\\x95\\x05\\x75\\x01\\x05\\x08\\x19\\x01\\x29\\x05\\x91\\x02\\x95\\x01\\x75\\x03\\x91\\x03\\x95\\x06\\x75\\x08\\x15\\x00\\x25\\x65\\x05\\x07\\x19\\x00\\x29\\x65\\x81\\x00\\xc0 > functions/hid.$N/report_desc
+# Link everything and bind the USB device
+if [ "$OS" != "MacOs" ]; then
+	ln -s configs/c.1 os_desc
+	ln -s functions/rndis.usb0 configs/c.1
+fi
 
+ln -s functions/ecm.usb0 configs/c.2
+ln -s functions/acm.gs0 configs/c.2
+ln -s functions/mass_storage.usb0 configs/c.2
 
-
-echo "Linking functionality"
-ln -s functions/rndis.$N configs/c.$C/
-
-ls /sys/class/udc > UDC
-
-sleep 0.2
-echo "" > UDC
-
-
-ln -s functions/mass_storage.$N configs/c.$C/
-ln -s functions/hid.$N configs/c.$C/
-
-echo "Enabling gadget"
+# End functions
 ls /sys/class/udc > UDC
