@@ -52,7 +52,7 @@ echo "CDC 2xACM+Mass Storage+RNDIS" > configs/c.1/strings/0x409/configuration
 
 mkdir functions/rndis.usb0 # Flippin' Windows
 N="usb0"
-
+C=1
 mkdir -p functions/hid.$N
 mkdir -p functions/mass_storage.$N
 
@@ -61,7 +61,7 @@ echo 1 > functions/mass_storage.$N/stall
 echo 0 > functions/mass_storage.$N/lun.0/cdrom
 echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
-echo "PiratePython" > functions/mass_storage.piratepython/lun.0/inquiry_string
+echo "PiratePython" > functions/mass_storage.$N/lun.0/inquiry_string
 echo $FILE > functions/mass_storage.$N/lun.0/file
 
 echo 1 > functions/hid.$N/protocol
