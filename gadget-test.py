@@ -86,6 +86,7 @@ __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file
 while(1):
 	os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 	os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
+	os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 	os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
