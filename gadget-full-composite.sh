@@ -188,6 +188,10 @@ echo "Waiting for connection"
 bash /home/pi/ecoduck-hardware/electrical-test.sh
 
 OS="$(bash /home/pi/ecoduck-hardware/fingerprint-host.sh)"
+echo $OS
+
+
+echo "" > ecoduck-simple/UDC
 if [ "$OS" != "Windows" ]; then
 	echo "Other"
 	ls /sys/class/udc > ecoduck-other/UDC
