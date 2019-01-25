@@ -101,7 +101,7 @@ while(1):
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
 
-		path=check_output("/bin/ls /dev/hidg*",shell=true).decode()[:-1]
+		path=check_output("/bin/ls /dev/hidg*",shell=True).decode()[:-1]
 		print("Target is: " + detectedos)
 		print("Target conneceted")
 		dummy_payload()
