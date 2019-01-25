@@ -19,6 +19,10 @@ MAC="$(echo ${SERIAL} | sed 's/\(\w\w\)/:\1/g' | cut -b 2-)"
 MAC_HOST="12$(echo ${MAC} | cut -b 3-)"
 MAC_DEV="02$(echo ${MAC} | cut -b 3-)"
 
+N="usb0"
+C=1
+FILE=/ecoduck.img
+
 cd /sys/kernel/config/usb_gadget/
 
 mkdir ecoduck
@@ -50,8 +54,6 @@ mkdir configs/c.1/strings/0x409
 echo "CDC 2xACM+Mass Storage+RNDIS" > configs/c.1/strings/0x409/configuration
 
 mkdir functions/rndis.usb0 # Flippin' Windows
-N="usb0"
-C=1
 mkdir -p functions/hid.$N
 mkdir -p functions/mass_storage.$N
 
