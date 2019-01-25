@@ -88,6 +88,6 @@ echo "" > UDC
 ln -s functions/mass_storage.$N configs/c.$C/
 ln -s functions/hid.$N configs/c.$C/
 echo "0x00" > bDeviceClass
-5
+
 echo "Enabling gadget"
 ls /sys/class/udc > UDC
