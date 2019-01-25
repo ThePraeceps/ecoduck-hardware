@@ -13,7 +13,7 @@ if [ -d /sys/kernel/config/usb_gadget/g1 ]; then
 fi
 
 ID_VENDOR="0x1d6b"
-ID_PRODUCT="0x0120"
+ID_PRODUCT="0x0129"
 
 SERIAL="$(grep Serial /proc/cpuinfo | sed 's/Serial\s*: 0000\(\w*\)/\1/')"
 MAC="$(echo ${SERIAL} | sed 's/\(\w\w\)/:\1/g' | cut -b 2-)"
@@ -26,7 +26,7 @@ mkdir ecoduck
 cd ecoduck
 
 echo "0x0200" > bcdUSB
-echo "0x02" > bDeviceClass
+echo "0x00" > bDeviceClass
 echo "0x00" > bDeviceSubClass
 echo "0x3066" > bcdDevice
 echo $ID_VENDOR > idVendor
@@ -61,7 +61,6 @@ echo 1 > functions/mass_storage.$N/stall
 echo 0 > functions/mass_storage.$N/lun.0/cdrom
 echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
-echo "PiratePython" > functions/mass_storage.$N/lun.0/inquiry_string
 echo $FILE > functions/mass_storage.$N/lun.0/file
 
 echo 1 > functions/hid.$N/protocol
@@ -84,36 +83,10 @@ ln -s functions/rndis.usb0 configs/c.1
 
 ln -s configs/c.1 os_desc
 
+ln -s functions/mass_storage.$N configs/c.$C/
+ln -s functions/hid.$N configs/c.$C/
 # Show Windows the RNDIS device with
 # bDeviceClass 0x02
 # bDeviceSubClass 0x02
 
 echo "20980000.usb" > UDC
-
-# Give it time to install
-
-sleep 5
-
-# Yank it back
-
-echo "" > UDC
-
-# Sneak in all the extra goodies
-
-ln -s functions/mass_storage.$N configs/c.$C/
-ln -s functions/hid.$N configs/c.$C/
-
-# Reset bDeviceClass to 0x00
-# This is essential to make it work in Windows 10
-# Basically forces it to use device information
-# in the descriptors versus assuming a particular class.
-
-echo "0x00" > bDeviceClass
-
-# Re-attach the gadget
-
-echo "20980000.usb" > UDC
-
-# BOOM!
-
-ifconfig usb0 up 10.0.99.1
