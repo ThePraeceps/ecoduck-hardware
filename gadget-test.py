@@ -88,9 +88,11 @@ while(1):
 	if(popen_timeout(__location__+"/electrical-test.sh", 1)):
 		detectedos = check_output(__location__+"/fingerprint-host.sh").decode()
 		if detectedos == "Windows":
+			print("Windows detected")
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
+			print("Other")
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
 
