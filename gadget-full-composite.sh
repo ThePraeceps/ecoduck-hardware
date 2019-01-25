@@ -64,6 +64,7 @@ echo 250 > configs/c.$C/MaxPower
 echo "Linking functionality"
 ln -s functions/hid.$N configs/c.$C/
 
+cd ..
 
 # Complex Gadget for Windows
 # ----------------------------------------------------------------------
