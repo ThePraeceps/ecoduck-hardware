@@ -98,7 +98,7 @@ while(1):
 
 		print("Target is: " + detectedos)
 		print("Target conneceted")
-		dummy_payload()
+		# dummy_payload()
 		print("Payload completed")
 		wait_till_disconnect()
 		if detectedos == "Windows":
