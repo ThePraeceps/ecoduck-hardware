@@ -93,7 +93,7 @@ while(1):
 		else:
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
-			
+
 		print("Target is: " + detectedos)
 		print("Target conneceted")
 		dummy_payload()
@@ -103,4 +103,4 @@ while(1):
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
-		os.system("ls /sys/class/udc > ecoduck-simple/UDC")
+		os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
