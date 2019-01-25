@@ -188,7 +188,9 @@ bash /home/pi/ecoduck-hardware/electrical-test.sh
 
 OS="$(bash /home/pi/ecoduck-hardware/fingerprint-host.sh)"
 if [ "$OS" != "Windows" ]; then
+	echo "Other"
 	ls /sys/class/udc > ecoduck-other/UDC
 else 
+	echo "Windows"
 	ls /sys/class/udc > ecoduck-win/UDC
 fi
