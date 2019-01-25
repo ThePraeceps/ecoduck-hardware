@@ -95,8 +95,6 @@ echo "" > UDC
 
 # Sneak in all the extra goodies
 
-ln -s functions/acm.GS0 configs/c.1
-ln -s functions/acm.GS1 configs/c.1
 ln -s functions/mass_storage.piratepython configs/c.1
 
 # Reset bDeviceClass to 0x00
