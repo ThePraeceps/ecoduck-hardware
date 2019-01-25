@@ -62,7 +62,7 @@ echo 1 > functions/mass_storage.usb0/stall
 echo 0 > functions/mass_storage.usb0/lun.0/cdrom
 echo 0 > functions/mass_storage.usb0/lun.0/ro
 echo 0 > functions/mass_storage.usb0/lun.0/nofua
-echo $FILE > functions/mass_storage.$N/lun.0/file
+echo $FILE > functions/mass_storage.usb0/lun.0/file
 
 # Link everything and bind the USB device
 if [ "$OS" != "MacOs" ]; then
