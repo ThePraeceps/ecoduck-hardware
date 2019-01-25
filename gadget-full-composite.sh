@@ -14,7 +14,6 @@ fi
 
 ID_VENDOR="0x1d6b"
 ID_PRODUCT="0x0129"
-
 SERIAL="$(grep Serial /proc/cpuinfo | sed 's/Serial\s*: 0000\(\w*\)/\1/')"
 MAC="$(echo ${SERIAL} | sed 's/\(\w\w\)/:\1/g' | cut -b 2-)"
 MAC_HOST="12$(echo ${MAC} | cut -b 3-)"
@@ -85,8 +84,6 @@ ln -s configs/c.1 os_desc
 
 ln -s functions/mass_storage.$N configs/c.$C/
 ln -s functions/hid.$N configs/c.$C/
-# Show Windows the RNDIS device with
-# bDeviceClass 0x02
-# bDeviceSubClass 0x02
+
 
 echo "20980000.usb" > UDC
