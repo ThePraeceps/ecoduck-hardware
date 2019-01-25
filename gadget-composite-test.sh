@@ -94,7 +94,6 @@ function init_usb()
 		# set up local mac address
 		echo "42:63:65:65:43:21" > functions/ecm.usb1/dev_addr
 	fi
-	USE_HID=true
 	# create HID function
 	# =======================================================
 	if $USE_HID; then
