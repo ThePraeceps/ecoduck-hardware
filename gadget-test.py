@@ -104,6 +104,7 @@ while(1):
 		path=check_output("/bin/ls /dev/hidg*",shell=True).decode()[:-1]
 		print("Target is: " + detectedos)
 		print("Target conneceted")
+		sleep(1)
 		dummy_payload()
 		
 		print("Payload completed")
