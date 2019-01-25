@@ -87,7 +87,7 @@ while(1):
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
 	if(popen_timeout(__location__+"/electrical-test.sh", 1)):
 		detectedos = check_output(__location__+"/fingerprint-host.sh").decode()
-		if(detectedos == "Windows"):
+		if detectedos == "Windows":
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
@@ -99,7 +99,7 @@ while(1):
 		dummy_payload()
 		print("Payload completed")
 		wait_till_disconnect()
-		if(detectedos == "Windows"):
+		if detectedos == "Windows":
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
