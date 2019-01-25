@@ -4,7 +4,7 @@ from time import sleep
 from subprocess import Popen, PIPE, check_output
 
 def write_report(report):
-	fd = os.open("/dev/hidg0", os.O_RDWR)
+	fd = os.open(path, os.O_RDWR)
 	os.write(fd, report)
 	os.close(fd)
 
@@ -84,10 +84,14 @@ def wait_till_disconnect():
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 while(1):
+	os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
+	os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
+	os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
+
 	os.system("head -c 1 /dev/hidg0 > /dev/null")
 	if(popen_timeout(__location__+"/electrical-test.sh", 1)):
-		detectedos = check_output(__location__+"/fingerprint-host.sh").decode()
-		if "Windows" in detectedos:
+		detectedos = check_output(__location__+"/fingerprint-host.sh").decode()[:-1]
+		if "Windows" == detectedos:
 			print("Windows detected")
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
@@ -96,11 +100,13 @@ while(1):
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
 
+		path=check_output("ls /dev/hidg").decode()[:-1]
 		print("Target is: " + detectedos)
 		print("Target conneceted")
-		# dummy_payload()
+		dummy_payload()
+		sleep(10)
 		print("Payload completed")
-		if "Windows" in detectedos:
+		if "Windows" == detectedos:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
