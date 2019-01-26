@@ -70,6 +70,7 @@ def dummy_payload(path):
 
 
 def wait_till_disconnect():
+	print("Waiting for device removal")
 	while(electrical_test("/dev/hidg0",1)):
 		sleep(3)
 	print("Disconnected!")
@@ -107,24 +108,21 @@ os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-win/UDC 2>/dev/null
 os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC 2>/dev/null")
 os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC 2>/dev/null")
 os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC 2>/dev/null")
-
+print("Waiting for connection...")
 while(1):
 	if(electrical_test("/dev/hidg0", 1)):
+		print("Device connected to target")
 		# OS Fingerprinting
 		detectedos = check_output(__location__+"/fingerprint-host.sh").decode()[:-1]
 		if "Windows" == detectedos:
-			print("Windows detected")
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-win/UDC")
 		else:
-			print("Other")
 			os.system("echo \"\" >  /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
 			os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
-
 		path=check_output("/bin/ls /dev/hidg*",shell=True).decode()[:-1]
-		print(path)
-		print("Target is: " + detectedos)
-		print("Target conneceted")
+		print("HID Path is: " + path)
+		print("Target OS is: " + detectedos)
 		sleep(2)
 		dummy_payload(path)
 		
@@ -135,5 +133,6 @@ while(1):
 		else:
 			os.system("echo \"\" > /sys/kernel/config/usb_gadget/ecoduck-other/UDC")
 		os.system("ls /sys/class/udc > /sys/kernel/config/usb_gadget/ecoduck-simple/UDC")
+		sleep(2)
 		wait_till_disconnect()
 
