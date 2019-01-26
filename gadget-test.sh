@@ -9,7 +9,7 @@ function write_report {
     echo -ne $1 > /dev/hidg0
 }
 
-cat /dev/hidg1 | echo
+cat /dev/hidg0 | echo
 
 # Alphabetical numbers in HEX starting at x4
 
