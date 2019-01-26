@@ -70,7 +70,7 @@ def dummy_payload(path):
 
 
 def wait_till_disconnect():
-	while(electrical_test("/dev/hidg0"),1):
+	while(electrical_test("/dev/hidg0",1)):
 		sleep(3)
 	print("Disconnected!")
 
