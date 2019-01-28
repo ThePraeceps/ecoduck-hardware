@@ -8,9 +8,11 @@ if [ ! -d /sys/kernel/config/usb_gadget ]; then
         modprobe libcomposite
 fi
 
-if [ -d /sys/kernel/config/usb_gadget/g1 ]; then
-        exit 0
+if [ -d /sys/kernel/config/usb_gadget/ecoduck-simple ]; then
+        echo "Gadgets already exist"
+        exit 1
 fi
+
 
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
@@ -29,11 +31,12 @@ C=1
 FILE=/ecoduck.img
 
 cd /sys/kernel/config/usb_gadget/
+echo "Making gadgets"
 
 # Simple Gadget for OS Enumeration
 # ----------------------------------------------------------------------
 mkdir ecoduck-simple && cd ecoduck-simple
-
+echo "Creating ecoduck-simple"
 
 # Add basic information
 
@@ -67,7 +70,6 @@ mkdir -p configs/c.$C/strings/0x409
 
 echo 250 > configs/c.$C/MaxPower 
 
-echo "Linking functionality"
 ln -s functions/hid.$N configs/c.$C/
 ln -s functions/mass_storage.$N configs/c.$C/
 
@@ -75,8 +77,8 @@ cd ..
 
 # Complex Gadget for Windows
 # ----------------------------------------------------------------------
-
 mkdir ecoduck-win && cd ecoduck-win
+echo "Creating ecoduck-win"
 
 echo "0x0200" > bcdUSB
 echo "0x00" > bDeviceClass
@@ -141,8 +143,8 @@ cd ..
 
 # Complex Gadget for MacOS/Linux
 # ----------------------------------------------------------------------
-
 mkdir ecoduck-other && cd ecoduck-other
+echo "Creating ecoduck-other"
 
 echo "0x0200" > bcdUSB
 echo "0x3066" > bcdDevice
@@ -190,8 +192,10 @@ ln -s functions/hid.$N configs/c.$C/
 
 cd ..
 
-
+echo "Starting DHCP server"
 service dnsmasq start
+
+echo "Setting up devices"
 
 ls /sys/class/udc > ecoduck-simple/UDC
 echo "" > ecoduck-simple/UDC
@@ -204,19 +208,5 @@ echo "" > ecoduck-other/UDC
 
 ls /sys/class/udc > ecoduck-simple/UDC
 
+echo "Adding firewall rules"
 sudo iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE
-# echo "Waiting for connection"
-# bash /home/pi/ecoduck-hardware/electrical-test.sh
-
-# OS="$(bash /home/pi/ecoduck-hardware/fingerprint-host.sh)"
-# echo $OS
-
-
-# echo "" > ecoduck-simple/UDC
-# if [ "$OS" != "Windows" ]; then
-# 	echo "Other"
-# 	ls /sys/class/udc > ecoduck-other/UDC
-# else 
-# 	echo "Windows"
-# 	ls /sys/class/udc > ecoduck-win/UDC
-# fi

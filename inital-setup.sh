@@ -5,7 +5,6 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
-
 modprobe dwc2
 modprobe libcomposite
 
@@ -21,12 +20,18 @@ echo "Making File System"
 dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
 mkdosfs /ecoduck.img
 
+apt update
+apt upgrade
+
+apt install openvswitch-switch, git, dnsmasq
+ovs-vsctl add-br bridge
+
 cat templates/interface.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
+cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
-# ToDo: Kernel Mod
-# ToDo: DNSMasq setup
-# ToDo: OVS setup
+bash patch-kernel.sh
+
 # ToDo: AP Setup?
 
 reboot

@@ -5,10 +5,19 @@ The repository for scripts relating to hardware setup for the economical duck.
 Sets up the modules required for USB OTG gadgets on a fresh installation of Raspbian Stretch
 
 ## gadget-configure.sh
-Sets up the gadget interfaces on an already setup device
+Sets up three gadgets on a configured device, one for fingerprinting, another for windows, and one for linux/mac
 
 ## gadget-remove.sh
-Removes the gadget from configured device
+Disables all gadgets from configured device and removes their configuration files
 
-## gadget-test.sh
-Opens terminal, prints "Hello World", used to test gadget keyboard functionality
+## patch-kernel.sh
+Generates a modifed dwc2.ko with USB sniffing based on the current kernel version
+
+## fingerprint-host.sh
+Returns the name of
+
+## gadget-test.py
+Opens terminal, prints "Hello World", pings the Pi and runs nmap on the last IP to request a DHCP lease. To be replaced with EDS.
+
+## Templats folder
+Contains the configuration files for the device
