@@ -1,0 +1,10 @@
+dhcp-mac=set:client_is_a_pi,B8:27:EB:*:*:*
+dhcp-reply-delay=tag:client_is_a_pi,2
+
+interface=bridge
+no-dhcp-interface=lo,wlan0
+bind-interfaces
+server=1.1.1.1
+domain-needed
+bogus-priv
+dhcp-range=bridge,192.168.10.50,192.168.10.150,30

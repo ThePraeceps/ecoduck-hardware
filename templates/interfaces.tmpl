@@ -6,37 +6,39 @@
 # Include files from /etc/network/interfaces.d:
 source-directory /etc/network/interfaces.d
 
-auto lo 
-auto ap0
+auto lo
+
 auto bridge
 auto wlan0
 
 iface lo inet loopback
 
+allow-hotplug usb0
 iface usb0 inet manual
-        pre-up ip link set dev usb0 up
-        post-down ip link set dev usb0 up
+	pre-up ovs-vsctl add-port bridge usb0
+	pre-up ip link set dev usb0 up
+	post-down ip link set dev usb0 up
+	post-down ovs-vsctl del-port usb0
 
+allow-hotplug usb1
 iface usb1 inet manual
+	pre-up ovs-vsctl add-port bridge usb1
         pre-up ip link set dev usb1 up
         post-down ip link set dev usb1 up
-
-iface ap0 inet manual
-        pre-up ip link set dev ap0 up
-        post-down ip link set dev ap0 up
+	post-up ovs-vsctl del-port usb1
 
 allow-hotplug bridge
 iface bridge inet static
     address 192.168.10.1
     netmask 255.255.255.0
-    network 192.168.10.0
-    broadcast 192.168.10.255
-    gateway 192.168.10.1
+    network 192.168.20.0
+    broadcast 192.168.20.255
+    gateway 192.168.20.1
     
 
 allow-hotplug wlan0
 iface wlan0 inet manual
     wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
-iface home inet dhcp
+iface home inet dhcp 
 iface hotspot inet dhcp

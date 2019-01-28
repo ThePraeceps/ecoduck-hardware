@@ -25,7 +25,8 @@ cat templates/interface.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 
 # ToDo: Kernel Mod
+# ToDo: DNSMasq setup
 # ToDo: OVS setup
-# ToDo: AP Setup 
+# ToDo: AP Setup?
 
 reboot
