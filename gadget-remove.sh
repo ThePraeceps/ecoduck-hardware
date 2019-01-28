@@ -11,9 +11,9 @@ C=1
 echo "Disabling gadgets"
 cd /sys/kernel/config/usb_gadget
 
-echo "" > ecoduck-simple/UDC
-echo "" > ecoduck-win/UDC
-echo "" > ecoduck-other/UDC
+echo "" > ecoduck-simple/UDC 2>/dev/null
+echo "" > ecoduck-win/UDC 2>/dev/null
+echo "" > ecoduck-other/UDC 2>/dev/null
 
 echo "Removing simple gadget"
 cd ecoduck-simple
