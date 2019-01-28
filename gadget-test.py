@@ -88,8 +88,9 @@ def network_test(path):
 	write_report(b'\x00\x00\x27\x00\x00\x00\x00\x00',path)
 	write_report(b'\x00\x00\x37\x00\x00\x00\x00\x00',path)
 	write_report(b'\x00\x00\x1E\x00\x00\x00\x00\x00',path)
-	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
 	write_report(b'\x00\x00\x28\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
+
 	targetip=get_last_lease()
 	nmapresults=check_output("/usr/bin/nmap -A " + targetip)
 	print(nmapresults)
