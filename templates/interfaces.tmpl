@@ -15,17 +15,15 @@ iface lo inet loopback
 
 allow-hotplug usb0
 iface usb0 inet manual
-	pre-up ovs-vsctl add-port bridge usb0
-	pre-up ip link set dev usb0 up
-	post-down ip link set dev usb0 up
-	post-down ovs-vsctl del-port usb0
+	pre-up ovs-vsctl --if-exists del-port usb0
+	post-up ovs-vsctl add-port bridge usb0
+	post-down ovs-vsctl --if-exists del-port usb0
 
 allow-hotplug usb1
 iface usb1 inet manual
-	pre-up ovs-vsctl add-port bridge usb1
-        pre-up ip link set dev usb1 up
-        post-down ip link set dev usb1 up
-	post-up ovs-vsctl del-port usb1
+	pre-up ovs-vsctl --if-exists del-port usb1
+	post-up ovs-vsctl add-port bridge usb1
+	post-down ovs-vsctl --if-exists del-port usb1
 
 allow-hotplug bridge
 iface bridge inet static
@@ -39,6 +37,3 @@ iface bridge inet static
 allow-hotplug wlan0
 iface wlan0 inet manual
     wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
-
-iface home inet dhcp 
-iface hotspot inet dhcp
