@@ -24,7 +24,8 @@ mkdosfs /ecoduck.img
 cat templates/interface.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 
-
-bash configure.sh
+# ToDo: Kernel Mod
+# ToDo: OVS setup
+# ToDo: AP Setup 
 
 reboot

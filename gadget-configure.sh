@@ -190,7 +190,21 @@ ln -s functions/hid.$N configs/c.$C/
 
 cd ..
 
+
+service dnsmasq start
+
 ls /sys/class/udc > ecoduck-simple/UDC
+echo "" > ecoduck-simple/UDC
+
+ls /sys/class/udc > ecoduck-win/UDC
+echo "" > ecoduck-win/UDC
+
+ls /sys/class/udc > ecoduck-other/UDC
+echo "" > ecoduck-other/UDC
+
+ls /sys/class/udc > ecoduck-simple/UDC
+
+
 # echo "Waiting for connection"
 # bash /home/pi/ecoduck-hardware/electrical-test.sh
 
