@@ -204,7 +204,7 @@ echo "" > ecoduck-other/UDC
 
 ls /sys/class/udc > ecoduck-simple/UDC
 
-
+sudo iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE
 # echo "Waiting for connection"
 # bash /home/pi/ecoduck-hardware/electrical-test.sh
 
