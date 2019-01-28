@@ -1,31 +1,32 @@
 #!/bin/bash
 
-# Currently OSX supports Mass Storage + Serial but *not* RNDIS (at least not 10.12 anyway)
-# Windows 10 and Linux seem to support everything
-# Windows 8, 7 and below are untested
+# Fingerprinting tested on Windows 7 and 10, Ubuntu 18.04, and MacOS 10.14(?)
 
-if [ ! -d /sys/kernel/config/usb_gadget ]; then
-        modprobe libcomposite
-fi
-
-if [ -d /sys/kernel/config/usb_gadget/ecoduck-simple ]; then
-        echo "Gadgets already exist"
-        exit 1
-fi
-
-
+# Basic checks to make sure script can be run
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
 
 
+if [ ! -d /sys/kernel/config/usb_gadget ]; then
+        echo "Device does not appear to be configured for this script"
+        exit 2
+fi
+
+if [ -d /sys/kernel/config/usb_gadget/ecoduck-simple ]; then
+        echo "Gadgets already exist"
+        exit 3
+fi
+
+# MAC Addresses of Ethernet Gadgets
 MAC_RNDIS_HOST="42:61:64:55:53:42"
 MAC_RNDIS_CLIENT="42:61:64:55:53:43"
 
 MAC_ECM_HOST="44:61:64:55:53:42"
 MAC_ECM_CLIENT="44:61:64:55:53:43"
 
+# Directory management and gadget variables
 N="usb0"
 C=1
 FILE=/ecoduck.img

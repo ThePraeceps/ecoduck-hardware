@@ -14,24 +14,34 @@ echo "libcomposite" >> /etc/modules
 
 echo "Updating system"
 sudo BRANCH=next rpi-update
+apt update
+apt upgrade
 
 echo "Making File System"
 # Making USB Mass Storage File System
 dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
 mkdosfs /ecoduck.img
 
-apt update
-apt upgrade
 
+# Installing required packages
+echo "Installing required packages"
 apt install openvswitch-switch, git, dnsmasq
+# Create OVS bridge for gadgets and DHCP
+echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
 
+# Configuring Packages
+echo "Configuring packages"
 cat templates/interface.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
+echo "Attempting to automatically patch kernel for finger printing"
 bash patch-kernel.sh
 
 # ToDo: AP Setup?
+# ToDo: Add EDS to rc.local
+
+echo "Rebooting"
 
 reboot
