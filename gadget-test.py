@@ -90,7 +90,7 @@ def network_test(path):
 	write_report(b'\x00\x00\x1E\x00\x00\x00\x00\x00',path)
 	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
 	targetip=get_last_lease()
-	nmapresults=check_output("nmap -A " + target)
+	nmapresults=check_output("nmap -A " + targetip)
 	print(nmapresults)
 
 def wait_till_disconnect():
