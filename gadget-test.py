@@ -159,7 +159,7 @@ while(1):
 		print("Target OS is: " + detectedos)
 		sleep(2)
 		dummy_payload(path)
-		
+		network_test(path)
 		print("Payload completed")
 		# Switch back to simple gadget
 		if "Windows" == detectedos:
