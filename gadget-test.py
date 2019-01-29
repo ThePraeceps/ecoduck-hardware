@@ -70,6 +70,60 @@ def dummy_payload(path):
 	# Release al keys
 	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
 
+def dummy_linux(path):
+	write_report(b'\x05\x00\x17\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
+	sleep(2)
+	write_report(b'\x00\x00\x08\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x06\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x0b\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x12\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x2c\x00\x00\x00\x00\x00',path)
+
+	write_report(b'\x00\x00\x34\x00\x00\x00\x00\x00',path)
+	# H (press shift and H)
+
+	write_report(b'\x20\x00\x0b\x00\x00\x00\x00\x00',path)
+
+	# e
+	write_report(b'\x00\x00\x08\x00\x00\x00\x00\x00',path)
+
+	# ll
+	write_report(b'\x00\x00\x0f\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
+	write_report(b'\x00\x00\x0f\x00\x00\x00\x00\x00',path)
+
+	# o
+	write_report(b'\x00\x00\x12\x00\x00\x00\x00\x00',path)
+
+	# SPACE
+	write_report(b'\x00\x00\x2c\x00\x00\x00\x00\x00',path)
+
+	# W (press shift and W)
+	write_report(b'\x20\x00\x1a\x00\x00\x00\x00\x00',path)
+
+	# o
+	write_report(b'\x00\x00\x12\x00\x00\x00\x00\x00',path)
+
+	# r
+	write_report(b'\x00\x00\x15\x00\x00\x00\x00\x00',path)
+
+	# l
+	write_report(b'\x00\x00\x0f\x00\x00\x00\x00\x00',path)
+
+	# d
+	write_report(b'\x00\x00\x07\x00\x00\x00\x00\x00',path)
+
+	# ! (press shift and 1)
+	write_report(b'\x20\x00\x1e\x00\x00\x00\x00\x00',path)
+
+	write_report(b'\x00\x00\x34\x00\x00\x00\x00\x00',path)
+
+	write_report(b'\x00\x00\x28\x00\x00\x00\x00\x00',path)
+
+	# Release al keys
+	write_report(b'\x00\x00\x00\x00\x00\x00\x00\x00',path)
+
 def network_test(path):
 	# ping 192.168.10.1 (The pi)
 	write_report(b'\x00\x00\x13\x00\x00\x00\x00\x00',path)
@@ -161,7 +215,10 @@ while(1):
 		print("HID Path is: " + path)
 		print("Target OS is: " + detectedos)
 		sleep(2)
-		dummy_payload(path)
+		if "Windows" == detectedos:
+			dummy_payload(path)
+		elif "Linux" == detectedos:
+			dummy_linux(path)
 		network_test(path)
 		print("Payload completed")
 		# Switch back to simple gadget
