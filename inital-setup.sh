@@ -51,7 +51,7 @@ cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 cp /etc/rc.local templates/rc.local.bak
 cp templates/rc.local-reboot.tmpl /etc/rc.local
 path=$(realpath $0)
-sed -i -e "s/PATH_TO_SCRIPT/$path/g" /etc/rc.local
+sed -i -e "s|PATH_TO_SCRIPT|$path|g" /etc/rc.local
 
 else
 echo "Second run"
