@@ -48,14 +48,19 @@ cat templates/interface.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
-P
+cp /etc/rc.local templates/rc.local.bak
+cp templates/rc.local-reboot.tmpl /etc/rc.local
+
 else
 echo "Second run"
 echo "Attempting to automatically patch kernel for finger printing"
 bash patch-kernel.sh
 
 # ToDo: AP Setup?
-# ToDo: Add EDS to rc.local
+
+cp templates/rc.local.bak /etc/rc.local
+cp templates/rc.local-reboot.tmpl /etc/rc.local
+
 fi
 
 echo "Rebooting"
