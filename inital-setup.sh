@@ -1,6 +1,7 @@
 #!/bin/bash
 # Enable LibComposite
-
+path=$(realpath $0)
+dir=$(dirname $0)
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
@@ -34,14 +35,14 @@ echo "Making File System"
 dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
 mkdosfs /ecoduck.img
 
-fg
+
 # Installing required packages
 echo "Installing required packages"
 apt install -y openvswitch-switch, git, dnsmasq, bison, flex
 # Create OVS bridge for gadgets and DHCP
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
-
+cd "$dir"
 # Configuring Packages
 echo "Configuring packages"
 cat templates/interface.tmpl > /etc/network/interfaces
@@ -50,12 +51,12 @@ cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
 cp /etc/rc.local templates/rc.local.bak
 cp templates/rc.local-reboot.tmpl /etc/rc.local
-path=$(realpath $0)
 sed -i -e "s|PATH_TO_SCRIPT|$path|g" /etc/rc.local
 
 else
 echo "Second run"
 echo "Attempting to automatically patch kernel for finger printing"
+cd "$dir"
 bash patch-kernel.sh
 
 # ToDo: AP Setup?
