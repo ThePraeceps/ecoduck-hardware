@@ -5,6 +5,18 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
+getopts ":r" opt;
+case $opt in
+	r)
+		run=1
+		;;
+	\?)
+		run=0
+		;;
+esac
+echo $run
+if [[ $run -ne 1 ]]; then
+echo "First run"
 modprobe dwc2
 modprobe libcomposite
 
@@ -15,7 +27,7 @@ echo "libcomposite" >> /etc/modules
 echo "Updating system"
 sudo BRANCH=next rpi-update
 apt update
-apt upgrade
+apt upgrade -y
 
 echo "Making File System"
 # Making USB Mass Storage File System
@@ -36,11 +48,15 @@ cat templates/interface.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
+P
+else
+echo "Second run"
 echo "Attempting to automatically patch kernel for finger printing"
 bash patch-kernel.sh
 
 # ToDo: AP Setup?
 # ToDo: Add EDS to rc.local
+fi
 
 echo "Rebooting"
 
