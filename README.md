@@ -19,5 +19,5 @@ Returns the name of
 ## gadget-test.py
 Opens terminal, prints "Hello World", pings the Pi and runs nmap on the last IP to request a DHCP lease. To be replaced with EDS.
 
-## Templats folder
+## Templates folder
 Contains the configuration files for the device
