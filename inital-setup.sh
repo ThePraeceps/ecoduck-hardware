@@ -34,10 +34,10 @@ echo "Making File System"
 dd if=/dev/zero of=/ecoduck.img bs=1024 count=524288
 mkdosfs /ecoduck.img
 
-
+fg
 # Installing required packages
 echo "Installing required packages"
-apt install -y openvswitch-switch, git, dnsmasq
+apt install -y openvswitch-switch, git, dnsmasq, bison, flex
 # Create OVS bridge for gadgets and DHCP
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
