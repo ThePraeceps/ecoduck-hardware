@@ -38,7 +38,7 @@ mkdosfs /ecoduck.img
 
 # Installing required packages
 echo "Installing required packages"
-apt install -y openvswitch-switch git dnsmasq bison flex
+apt install -y openvswitch-switch git dnsmasq
 # Create OVS bridge for gadgets and DHCP
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
