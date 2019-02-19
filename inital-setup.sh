@@ -21,7 +21,7 @@ echo "First run"
 modprobe dwc2
 modprobe libcomposite
 
-echo "dtoverlay=dwc2" >> /boot/config
+echo "dtoverlay=dwc2" >> /boot/config.txt
 echo "dwc2" >> /etc/modules
 echo "libcomposite" >> /etc/modules
 
@@ -42,6 +42,8 @@ apt install -y openvswitch-switch git dnsmasq bison flex bc libssl-dev
 # Create OVS bridge for gadgets and DHCP
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
+ovs-vsctl add-port usb0
+ovs-vsctl add-port usb1
 cd "$dir"
 # Configuring Packages
 echo "Configuring packages"
