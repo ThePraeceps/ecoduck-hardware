@@ -1,6 +1,6 @@
 #!/bin/bash
 dir=$(pwd)
-apt install -y bison flex bc 
+apt install -y P
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
