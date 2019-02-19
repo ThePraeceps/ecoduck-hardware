@@ -6,7 +6,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-cd
+cd /root/
 version="$(uname -r | awk -F '.' '{ print $1 }')"
 patchlevel="$(uname -r | awk -F '.' '{ print $2 }')"
 branch="rpi-$version.$patchlevel.y"
