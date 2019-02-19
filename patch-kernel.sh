@@ -1,6 +1,6 @@
 #!/bin/bash
 dir=$(pwd)
-apt install -y bison flex bc
+apt install -y bison flex bc libssl-dev
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
@@ -32,7 +32,7 @@ if [ $? -ne 0 ]; then
     echo "Patched failed, kernel version potentially incompatible"
     exit
 fi
-cd ~/linux
+cd /root/linux
 make M=drivers/usb/dwc2 CONFIG_USB_DWC2=m
 if [ $? -ne 0 ]; then
     echo "Make command failed, kernel version potentially incompatible"
@@ -43,6 +43,6 @@ cd drivers/usb/dwc2
 cd "$dir"
 mkdir -p kernel-patch
 cd kernel-patch
-cp ~/linux/drivers/usb/dwc2/dwc2.ko ./dwc2-patched.ko
+cp /root/linux/drivers/usb/dwc2/dwc2.ko ./dwc2-patched.ko
 cp "/lib/modules/$(uname -r)/kernel/drivers/usb/dwc2/dwc2.ko" "./dwc2-original.ko"
 cp "./dwc2-patched.ko" "/lib/modules/$(uname -r)/kernel/drivers/usb/dwc2/dwc2.ko"
