@@ -6,6 +6,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 dir=$(dirname $0)
+patchloc=$(readlink -f "${dir}/templates/gadget.patch")
 apt install -y bison flex bc libssl-dev
 
 version="$(uname -r | awk -F '.' '{ print $1 }')"
@@ -29,7 +30,7 @@ make prepare
 make scripts
 echo "Attempting to patching dwc2"
 cd drivers/usb/dwc2
-patch -i -f "$dir"/templates/gadget.patch
+patch -i -f "$patchloc"
 if [ $? -ne 0 ]; then
     echo "Patched failed, kernel version potentially incompatible"
     exit
