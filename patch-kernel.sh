@@ -30,7 +30,7 @@ make prepare
 make scripts
 echo "Attempting to patching dwc2"
 cd drivers/usb/dwc2
-patch -i -f "$patchloc"
+patch -f -i "$patchloc"
 if [ $? -ne 0 ]; then
     echo "Patched failed, kernel version potentially incompatible"
     exit
