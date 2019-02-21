@@ -5,10 +5,11 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-dir=$(dirname $0)
+dir=$(readlink -f "$(dirname $0)")
 patchloc=$(readlink -f "${dir}/templates/gadget.patch")
 apt install -y bison flex bc libssl-dev
-
+echo "Script Location: $dir"
+echo "Patch Location: $patchloc"
 version="$(uname -r | awk -F '.' '{ print $1 }')"
 patchlevel="$(uname -r | awk -F '.' '{ print $2 }')"
 branch="rpi-$version.$patchlevel.y"
