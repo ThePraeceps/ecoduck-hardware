@@ -1,17 +1,19 @@
 #!/bin/bash
-dir=$(pwd)
-apt install -y bison flex bc libssl-dev
+
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
 
-cd /root/
+dir=$(dirname $0)
+apt install -y bison flex bc libssl-dev
+
 version="$(uname -r | awk -F '.' '{ print $1 }')"
 patchlevel="$(uname -r | awk -F '.' '{ print $2 }')"
 branch="rpi-$version.$patchlevel.y"
 echo "Identifed branch from kernel version: $branch"
 echo "Cloning idetnified branch"
+cd /root/
 git clone --depth=1 --branch "$branch" https://github.com/raspberrypi/linux
 if [ $? -ne 0 ]; then
     echo "Git command failed, possible network error or branch detection failed"
