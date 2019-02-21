@@ -42,8 +42,6 @@ apt install -y openvswitch-switch git dnsmasq bison flex bc libssl-dev
 # Create OVS bridge for gadgets and DHCP
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
-ovs-vsctl add-port bridge usb0
-ovs-vsctl add-port bridge usb1
 cd "$dir"
 # Configuring Packages
 echo "Configuring packages"
@@ -65,6 +63,7 @@ bash patch-kernel.sh
 cd "$dir"
 
 cp templates/rc.local.bak /etc/rc.local
+
 
 fi
 
