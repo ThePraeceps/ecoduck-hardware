@@ -211,3 +211,7 @@ ls /sys/class/udc > ecoduck-simple/UDC
 
 echo "Adding firewall rules"
 sudo iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE
+
+echo "Mounting stoarge"
+mkdir -p /mnt/ecoduck
+mount -o loop,rw, -t vfat $FILE /mnt/ecoduck
