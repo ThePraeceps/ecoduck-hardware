@@ -44,7 +44,7 @@ apt install -y openvswitch-switch git dnsmasq bison flex bc libssl-dev
 cd "$dir"
 # Configuring Packages
 echo "Configuring packages"
-cat templates/interface.tmpl > /etc/network/interfaces
+cat templates/interfaces.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
