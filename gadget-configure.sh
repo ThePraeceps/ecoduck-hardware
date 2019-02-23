@@ -65,7 +65,7 @@ echo 1 > functions/mass_storage.$N/stall
 echo 0 > functions/mass_storage.$N/lun.0/cdrom
 echo 0 > functions/mass_storage.$N/lun.0/ro
 echo 0 > functions/mass_storage.$N/lun.0/nofua
-echo "" > functions/mass_storage.$N/lun.0/file # $FILE for non-fingerprint use.
+echo $FILE > functions/mass_storage.$N/lun.0/file # $FILE for non-fingerprint use.
 
 mkdir -p configs/c.$C/strings/0x409
 
