@@ -60,8 +60,17 @@ bash patch-kernel.sh
 
 # ToDo: AP Setup?
 cd "$dir"
+cp templates/rc.local-installed.tmpl /etc/rc.local
 
-cp templates/rc.local.bak /etc/rc.local
+echo "Creating OVS bridge for gadgets"
+ovs-vsctl add-br bridge
+
+echo "Creating start up scripts"
+mkdir -p /usr/ecoduck/
+cd /usr/ecoduck/
+git clone https://www.github.com/ThePraeceps/ecoduck-software.git
+cp ecoduck-software/gadget-configure.sh ./
+cp ecoduck-software/ecoduck.py ./
 
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
