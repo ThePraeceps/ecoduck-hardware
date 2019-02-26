@@ -60,7 +60,10 @@ bash patch-kernel.sh
 
 # ToDo: AP Setup?
 cd "$dir"
-cp templates/rc.local-installed.tmpl /etc/rc.local
+cp templates/ecoduck-init.tmpl /etc/init.d/ecoduck-init
+chmod 755 /etc/init.d/ecoduck-init
+update-rc.d ecoduck-init defaults
+
 
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
