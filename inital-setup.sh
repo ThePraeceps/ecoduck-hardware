@@ -76,8 +76,13 @@ cp ecoduck-software/gadget-configure.sh ./
 cp ecoduck-software/ecoduck.py ./
 cp ecoduck-software/load-payloads.py ./
 
+
+
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
+
+cp templates/rc.local.bak /etc/rc.local
+
 fi
 
 echo "Rebooting"
