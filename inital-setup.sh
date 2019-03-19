@@ -59,16 +59,7 @@ cd "$dir"
 bash patch-kernel.sh
 
 # ToDo: AP Setup?
-cd "$dir"
-cp templates/ecoduck-init.tmpl /etc/init.d/ecoduck-init
-chmod 755 /etc/init.d/ecoduck-init
-update-rc.d ecoduck-init defaults
-
-
-echo "Creating OVS bridge for gadgets"
-ovs-vsctl add-br bridge
-
-echo "Creating start up scripts"
+echo "Setting up software"
 mkdir -p /usr/ecoduck/
 cd /usr/ecoduck/
 git clone https://www.github.com/ThePraeceps/ecoduck-software.git
@@ -76,11 +67,26 @@ cp ecoduck-software/gadget-configure.sh ./
 cp ecoduck-software/ecoduck.py ./
 cp ecoduck-software/load-payloads.py ./
 
+echo "Setting up boot script"
+cd "$dir"
+cp templates/ecoduck-init.tmpl /etc/init.d/ecoduck-init
+chmod 755 /etc/init.d/ecoduck-init
+update-rc.d ecoduck-init defaults
+
+
 
 
 echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
 
+
+
+echo "Creating OVS bridge for gadgets"
+ovs-vsctl add-br bridgequ
+
+echo "Setup complete, removing setup from reboot" 1>2
+
+cd "$dir"
 cp templates/rc.local.bak /etc/rc.local
 
 fi
