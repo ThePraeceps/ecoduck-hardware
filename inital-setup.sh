@@ -48,9 +48,11 @@ cat templates/interfaces.tmpl > /etc/network/interfaces
 cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
-cp /etc/rc.local templates/rc.local.bak
-cp templates/rc.local-reboot.tmpl /etc/rc.local
-sed -i -e "s|PATH_TO_SCRIPT|$path|g" /etc/rc.local
+cd "$dir"
+cp templates/ecoduck-install.tmpl /etc/init.d/ecoduck-install
+sed -i -e "s|PATH_TO_SCRIPT|$path|g" /etc/init.d/ecoduck-install
+chmod 755 /etc/init.d/ecoduck-install
+update-rc.d ecoduck-install defaults
 
 else
 echo "Second run"
@@ -60,6 +62,7 @@ bash patch-kernel.sh
 
 # ToDo: AP Setup?
 echo "Setting up software"
+
 mkdir -p /usr/ecoduck/
 cd /usr/ecoduck/
 git clone https://www.github.com/ThePraeceps/ecoduck-software.git
@@ -80,14 +83,10 @@ echo "Creating OVS bridge for gadgets"
 ovs-vsctl add-br bridge
 
 
+echo "Setup complete, removing setup from reboot" 
+update-rc.d -f ecoduck-install remove
+rm -f /etc/init.d/ecoduck-install
 
-echo "Creating OVS bridge for gadgets"
-ovs-vsctl add-br bridgequ
-
-echo "Setup complete, removing setup from reboot" 1>2
-
-cd "$dir"
-cp templates/rc.local.bak /etc/rc.local
 
 fi
 
