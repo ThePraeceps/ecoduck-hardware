@@ -17,7 +17,7 @@
 case "$1" in
   start)
     echo "Starting ecoduck payload loader"
-    /bin/bash PATH_TO_SCRIPT
+    /usr/bin/screen -dmS ecoduck-install -O -l /usr/bin/bash -c PATH_TO_SCRIPT -r
     exit 1
     ;;
   *)
