@@ -1,14 +1,14 @@
 #! /bin/sh
-# /etc/init.d/ecoduck-init
+# /etc/init.d/ecoduck-install
 
 ### BEGIN INIT INFO
-# Provides:          ecoduck-init
+# Provides:          ecoduck-install
 # Required-Start:    $remote_fs $network openvswitch-switch
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Starts the ecoduck installer
-# Description:       Will run the payload loader script
+# Description:       Will run the installation script in a screen
 ### END INIT INFO
 
 # If you want a command to always run, put it here
@@ -17,8 +17,7 @@
 case "$1" in
   start)
     echo "Starting ecoduck payload loader"
-    /usr/bin/screen -dmS ecoduck-install -O -l /usr/bin/bash -c PATH_TO_SCRIPT -r
-    exit 1
+    /bin/su -c  "/usr/bin/screen -dmS ecoduck-install -O -l /bin/bash -c \"PATH_TO_SCRIPT -r\""
     ;;
   *)
     echo "Usage: /etc/init.d/ecoduck-install start"

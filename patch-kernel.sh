@@ -4,6 +4,7 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
+cd /root/
 
 dir=$(readlink -f "$(dirname $0)")
 patchloc=$(readlink -f "${dir}/templates/gadget.patch")
