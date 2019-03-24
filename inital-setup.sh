@@ -45,7 +45,6 @@ cd "$dir"
 # Configuring Packages
 echo "Configuring packages"
 cat templates/interfaces.tmpl > /etc/network/interfaces
-cat templates/wpa_supplicant.conf.tmpl > /etc/wpa_supplicant/wpa_supplicant.conf
 cat templates/dnsmasq.conf.tmpl > /etc/dnsmasq.conf
 
 cd "$dir"
@@ -53,6 +52,8 @@ cp templates/ecoduck-install.tmpl /etc/init.d/ecoduck-install
 sed -i -e "s|PATH_TO_SCRIPT|$path|g" /etc/init.d/ecoduck-install
 chmod 755 /etc/init.d/ecoduck-install
 update-rc.d ecoduck-install defaults
+
+cp templates/getty.override.tty /etc/systemd/system/getty@tty1.service.d/override.conf
 
 else
 echo "Second run"
@@ -86,7 +87,7 @@ ovs-vsctl add-br bridge
 echo "Setup complete, removing setup from reboot" 
 update-rc.d -f ecoduck-install remove
 rm -f /etc/init.d/ecoduck-install
-
+rm -f /etc/systemd/system/getty@tty1.service.d/override.conf
 
 fi
 
