@@ -1,5 +1,5 @@
 [Service]
 ExecStart=
-ExecStart=-screen -r
+ExecStart=-/usr/bin/screen -r
 StandardInput=tty
 StandardOutput=tty
