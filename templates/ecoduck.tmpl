@@ -19,7 +19,8 @@
 case "$1" in
   start)
     echo "Starting ecoduck payload loader"
-    /usr/bin/screen -dmS ecoduck -O -l /usr/bin/python3 /usr/ecoduck/load-payloads.py
+    /usr/bin/screen -dmS ecoduck -O -l 
+    /bin/su -c  "/usr/bin/screen -dmS ecoduck-install -O -l /bin/bash -c \"/usr/bin/python3 /usr/ecoduck/load-payloads.py && read -n 1 -s -r -p \"Press any key to continue\"\""
     ;;
   stop)
     echo "Stopping ecoduck payload loader"
