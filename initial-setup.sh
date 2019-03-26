@@ -66,7 +66,7 @@ echo "Setting up software"
 
 mkdir -p /usr/ecoduck/
 cd /usr/ecoduck/
-git clone https://www.github.com/ThePraeceps/ecoduck-software.git
+git clone git://www.github.com/ThePraeceps/ecoduck-software.git
 cp ecoduck-software/gadget-configure.sh ./
 cp ecoduck-software/ecoduck.py ./
 cp ecoduck-software/load-payloads.py ./

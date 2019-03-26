@@ -16,7 +16,7 @@ branch="rpi-$version.$patchlevel.y"
 echo "Identifed branch from kernel version: $branch"
 echo "Cloning idetnified branch"
 cd /root/
-git clone --depth=1 --branch "$branch" https://github.com/raspberrypi/linux -vvvv
+git clone --depth=1 --branch "$branch" git://github.com/raspberrypi/linux.git -vvvv
 if [ $? -ne 0 ]; then
     echo "Git command failed, possible network error or branch detection failed"
     exit
