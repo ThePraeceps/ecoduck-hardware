@@ -1,0 +1,27 @@
+# Run the payload loader on boot
+enabled=true
+
+# Use advanced payloads (Python)
+advanced=false
+
+# Keep running every time it's plugged into a computer
+infinite=true
+
+# Wait for device being disconnected before running payload again
+wait_for_disconnect=true
+
+# Select gadget based on detected OS
+os_gadget_detection=true
+
+# Select payload based on detected OS
+os_payload_detection=true
+
+# Default gadget if OS detection fails or is disabled
+# Valid options: simple, windows, macos, linux
+default_gadget=simple
+
+# Default gadget if OS detection fails, is disabled, or a script is not found for that OS
+# Does not include extention - will look for .txt for simple mode and .py for advanced mode.
+default_script=default
+
+

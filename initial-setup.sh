@@ -56,7 +56,7 @@ update-rc.d ecoduck-install defaults
 cp templates/getty.override.tty /etc/systemd/system/getty@tty1.service.d/override.conf
 
 echo "Creating default configuration file"
-cp templates/ecoduck.tmpl /boot/ecoduck.conf
+cp templates/ecoduck.conf.tmpl /boot/ecoduck.conf
 
 else
 echo "Second run"

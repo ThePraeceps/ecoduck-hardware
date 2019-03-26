@@ -1,27 +1,38 @@
-# Run the payload loader on boot
-enabled=true
+#! /bin/sh
+# /etc/init.d/ecoduck
 
-# Use advanced payloads (Python)
-advanced=false
+### BEGIN INIT INFO
+# Provides:          ecoduck
+# Required-Start:    $remote_fs $network openvswitch-switch
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Starts the ecoduck payload loader
+# Description:       Will run the payload loader script
+### END INIT INFO
 
-# Keep running every time it's plugged into a computer
-infinite=true
-
-# Wait for device being disconnected before running payload again
-wait_for_disconnect=true
-
-# Select gadget based on detected OS
-os_gadget_detection=true
-
-# Select payload based on detected OS
-os_payload_detection=true
-
-# Default gadget if OS detection fails or is disabled
-# Valid options: simple, windows, macos, linux
-default_gadget=simple
-
-# Default gadget if OS detection fails, is disabled, or a script is not found for that OS
-# Does not include extention - will look for .txt for simple mode and .py for advanced mode.
-default_script=default
+# If you want a command to always run, put it here
 
 
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting ecoduck payload loader"
+    /usr/bin/screen -dmS ecoduck -O -l /usr/bin/python3 /usr/ecoduck/load-payloads.py
+    ;;
+  stop)
+    echo "Stopping ecoduck payload loader"
+    killall python3
+    ;;
+  status)
+    echo "Opening screen for payload loader"
+    screen -r ecoduck
+    ;;
+  *)
+    echo "Usage: /etc/init.d/ecoduck-init {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0 
