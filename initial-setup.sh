@@ -92,7 +92,7 @@ ovs-vsctl add-br bridge
 echo "Setup complete, removing setup from reboot" 
 update-rc.d -f ecoduck-install remove
 rm -f /etc/init.d/ecoduck-install
-rm -f /etc/systemd/system/getty@tty1.service.d/override.conf
+# rm -f /etc/systemd/system/getty@tty1.service.d/override.conf
 
 echo "Creating default configuration file"
 cp 
