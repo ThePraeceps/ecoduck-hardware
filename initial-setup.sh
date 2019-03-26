@@ -55,10 +55,15 @@ update-rc.d ecoduck-install defaults
 
 cp templates/getty.override.tty /etc/systemd/system/getty@tty1.service.d/override.conf
 
+echo "Creating default configuration file"
+cp templates/ecoduck.tmpl /boot/ecoduck.conf
+
 else
 echo "Second run"
 echo "Attempting to automatically patch kernel for finger printing"
 cd "$dir"
+
+
 bash patch-kernel.sh
 
 # ToDo: AP Setup?
@@ -71,11 +76,11 @@ cp ecoduck-software/gadget-configure.sh ./
 cp ecoduck-software/ecoduck.py ./
 cp ecoduck-software/load-payloads.py ./
 
-echo "Setting up boot script"
+echo "Setting up boot service"
 cd "$dir"
-cp templates/ecoduck-init.tmpl /etc/init.d/ecoduck-init
-chmod 755 /etc/init.d/ecoduck-init
-update-rc.d ecoduck-init defaults
+cp templates/ecoduck.tmpl /etc/init.d/ecoduck
+chmod 755 /etc/init.d/ecoduck
+update-rc.d ecoduck defaults
 
 
 
@@ -89,6 +94,8 @@ update-rc.d -f ecoduck-install remove
 rm -f /etc/init.d/ecoduck-install
 rm -f /etc/systemd/system/getty@tty1.service.d/override.conf
 
+echo "Creating default configuration file"
+cp 
 fi
 
 echo "Rebooting"

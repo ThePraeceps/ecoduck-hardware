@@ -1,8 +1,8 @@
 #! /bin/sh
-# /etc/init.d/ecoduck-init
+# /etc/init.d/ecoduck
 
 ### BEGIN INIT INFO
-# Provides:          ecoduck-init
+# Provides:          ecoduck
 # Required-Start:    $remote_fs $network openvswitch-switch
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
@@ -19,12 +19,15 @@
 case "$1" in
   start)
     echo "Starting ecoduck payload loader"
-    /usr/bin/screen -dmS ecoduck-init -O -l /usr/bin/python3 /usr/ecoduck/load-payloads.py
-    
+    /usr/bin/screen -dmS ecoduck -O -l /usr/bin/python3 /usr/ecoduck/load-payloads.py
     ;;
   stop)
     echo "Stopping ecoduck payload loader"
     killall python3
+    ;;
+  status)
+    echo "Opening screen for payload loader"
+    screen -r ecoduck
     ;;
   *)
     echo "Usage: /etc/init.d/ecoduck-init {start|stop}"
