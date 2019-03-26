@@ -17,9 +17,11 @@ os_gadget_detection=true
 os_payload_detection=true
 
 # Default gadget if OS detection fails or is disabled
+# Valid options: simple, windows, macos, linux
 default_gadget=simple
 
 # Default gadget if OS detection fails, is disabled, or a script is not found for that OS
+# Does not include extention - will look for .txt for simple mode and .py for advanced mode.
 default_script=default
 
 
