@@ -24,13 +24,20 @@ case "$1" in
   stop)
     echo "Stopping ecoduck payload loader"
     killall python3
+    screen -X -S ecoduck kill
     ;;
-  status)
+  restart)
+    echo "Stopping ecoduck payload loader"
+    killall python3
+    screen -X -S ecoduck kill
+    /bin/su -c  "/usr/bin/screen -dmS ecoduck -O -l /bin/bash -c 'echo \"Sleeping to allow device to start\" && sleep 3 && /usr/bin/python3 /usr/ecoduck/load-payloads.py || read -n 1 -s -r -p Press\ any\ key\ to\ continue' "
+    ;;
+  screen)
     echo "Opening screen for payload loader"
     screen -r ecoduck
     ;;
   *)
-    echo "Usage: /etc/init.d/ecoduck-init {start|stop}"
+    echo "Usage: /etc/init.d/ecoduck-init {start|stop|restart|screen|status}"
     exit 1
     ;;
 esac
