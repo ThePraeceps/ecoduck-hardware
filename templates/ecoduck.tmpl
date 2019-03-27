@@ -36,8 +36,16 @@ case "$1" in
     echo "Opening debug for payload loader"
     screen -x ecoduck
     ;;
+  update)
+    echo "Updating software"
+    cd /usr/ecoduck/ecoduck-software/
+    git pull
+    cp gadget-configure.sh ../
+    cp ecoduck.py ../
+    cp load-payloads.py ../
+    ;;
   *)
-    echo "Usage: /etc/init.d/ecoduck-init {start|stop|restart|debug|status}"
+    echo "Usage: /etc/init.d/ecoduck-init {start|stop|restart|debug|status|update}"
     exit 1
     ;;
 esac
