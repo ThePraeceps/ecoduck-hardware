@@ -1,0 +1,16 @@
+CMT program numero uno, control alt delete
+PRESS LCTRL+LALT+DELETE
+DELAY 0.5
+PRESS enter
+DELAY 0.5
+REPEAT 3
+PRESS down_arrow
+END
+PRESS enter
+TYPE netlab
+PRESS tab
+TYPE password
+PRESS tab
+TYPE password
+PRESS tab
+PRESS enter
